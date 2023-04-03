@@ -1,4 +1,4 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useRef, useState } from 'react';
 
 import classes from './TaskForm.module.css';
 
@@ -9,6 +9,7 @@ interface Props {
 
 export default function TaskForm(props: Props) {
 
+  const [taskName, setTaskName] = useState<string>("");
   const taskInputRef = useRef<HTMLInputElement>(null);
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
@@ -18,13 +19,13 @@ export default function TaskForm(props: Props) {
 
     if (enteredValue !== undefined && enteredValue.trim().length > 0) {
       props.onEnterTask(enteredValue);
-      taskInputRef.current!.value = "";
+      setTaskName("");
     }
   };
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
-      <input type='text' ref={taskInputRef} />
+      <input type='text' ref={taskInputRef} value={taskName} />
       <button>{props.loading ? 'Sending...' : 'Add Task'}</button>
     </form>
   );
