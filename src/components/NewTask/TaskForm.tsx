@@ -14,10 +14,11 @@ export default function TaskForm(props: Props) {
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const enteredValue = taskInputRef.current?.value;
+    let enteredValue = taskInputRef.current?.value;
 
     if (enteredValue !== undefined && enteredValue.trim().length > 0) {
       props.onEnterTask(enteredValue);
+      taskInputRef.current!.value = "";
     }
   };
 

@@ -1,4 +1,5 @@
 import { Task } from '../../models/Task';
+import Loading from '../UI/Loading/Loading';
 import Section from '../UI/Section/Section';
 import TaskItem from './TaskItem';
 import classes from './Tasks.module.css';
@@ -36,7 +37,8 @@ export default function Tasks(props: Props) {
   }
 
   if (props.loading) {
-    content = <p>Loading task...</p>;
+    // content = <p>Loading task...</p>;
+    content = <Loading></Loading>
   }
 
   return (

@@ -13,3 +13,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+## Custom Hooks
+
+### useAxiosGet
+It uses axios and does not have any returning function
+
+### useAxios
+It uses axios.request method as well as having a returning function to refetch data
+
+### useAxiosFunction
+It uses axios.request method as well as having a returning function to send any kind of request

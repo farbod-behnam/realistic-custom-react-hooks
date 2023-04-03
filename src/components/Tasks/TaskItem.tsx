@@ -1,4 +1,4 @@
-import { Key, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import classes from './TaskItem.module.css';
 
 interface Props {

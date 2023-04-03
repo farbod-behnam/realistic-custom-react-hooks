@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useAxiosFunction from '../../hooks/use-axios-function';
 import { Task } from '../../models/Task';
 
 import Section from '../UI/Section/Section';
@@ -11,26 +11,30 @@ interface Props {
 
 export default function NewTask(props: Props) {
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [createdTask, error, isLoading, axiosSendRequest] = useAxiosFunction<Task>();
 
-  const enterTaskHandler = async (taskText: string) => {
-    setIsLoading(true);
-    setError(undefined);
-    try {
-      let response = await axios.post("http://localhost:8080/api/tasks", { text: taskText });
+  const enterTaskHandler = async (text: string) => {
 
-      console.log(response.data);
-      
-      const createdTask: Task = response.data;
+    if (text !== undefined && text.trim().length > 0) {
 
-      props.onAddTask(createdTask);
-    } catch (err) {
-      const error = err as Error;
-      setError(error.message || 'Something went wrong!');
+      axiosSendRequest({
+        url: "http://localhost:8080/api/tasks",
+        method: "POST",
+        data: { id: "", text: text }
+      });
+
     }
-    setIsLoading(false);
+
   };
+
+
+  useEffect(() => {
+
+    if (createdTask) {
+      props.onAddTask(createdTask);
+    }
+
+  }, [createdTask])
 
   return (
     <Section>
